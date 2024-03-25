@@ -14,7 +14,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { CreateStationDto } from '../dto/create-station.dto/create-station.dto';
+import { StationDto } from '../dto/station.dto';
 import { Station } from '../entities/station.entity';
 import { StationService } from '../services/station.service';
 
@@ -24,15 +24,27 @@ export class ControllersController {
   constructor(private readonly stationService: StationService) {}
 
   @Get()
+  @ApiOperation({
+    summary: 'Get all stations',
+    description: 'Retrieve a list of all stations.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Stations retrieved successfully.',
+    type: [Station],
+  })
   async findAll(): Promise<Station[]> {
     return this.stationService.findAll();
   }
 
   @Get(':id')
-  @ApiOperation({ summary: 'Get station by ID' })
+  @ApiOperation({
+    summary: 'Get station by ID',
+    description: 'Retrieve a station by its ID.',
+  })
   @ApiResponse({
     status: 200,
-    description: 'The station has been successfully retrieved.',
+    description: 'Station retrieved successfully.',
     type: Station,
   })
   async findOne(@Param('id') id: string): Promise<Station> {
@@ -40,20 +52,27 @@ export class ControllersController {
   }
 
   @Post()
-  @ApiOperation({ summary: 'Create a new station' })
+  @ApiOperation({
+    summary: 'Create a new station',
+    description: 'Create a new station with provided data.',
+  })
   @ApiResponse({
     status: 201,
-    description: 'The station has been successfully created.',
+    description: 'Station created successfully.',
     type: Station,
   })
   @ApiBadRequestResponse({ description: 'Invalid station data provided.' })
   async create(
-    @Body(new ValidationPipe()) CreateStationDto: CreateStationDto,
+    @Body(new ValidationPipe()) CreateStationDto: StationDto,
   ): Promise<Station> {
     return this.stationService.create(CreateStationDto);
   }
 
   @Put(':id')
+  @ApiOperation({
+    summary: 'Update a station',
+    description: 'Update an existing station with provided data.',
+  })
   async update(
     @Param('id') id: string,
     @Body() stationData: Partial<Station>,
@@ -62,6 +81,10 @@ export class ControllersController {
   }
 
   @Delete(':id')
+  @ApiOperation({
+    summary: 'Delete a station',
+    description: 'Delete a station by its ID.',
+  })
   async remove(@Param('id') id: string): Promise<void> {
     return this.stationService.remove(+id);
   }
