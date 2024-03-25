@@ -12,7 +12,7 @@ import { StationModule } from './station/station.module';
       port: 5432, // database host port
       username: 'root', // username
       password: 'Tlsdnltjd11%', // user password
-      database: 'test', // name of our database,
+      database: 'electric', // name of our database,
       entities: ['dist/**/entities/*.entity.js'], // add your entities here
       synchronize: true, // if true, TypeORM will automatically create the database schema on application launch
     }),
