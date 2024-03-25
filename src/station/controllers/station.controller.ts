@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  ValidationPipe,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -13,6 +14,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { CreateStationDto } from '../dto/create-station.dto/create-station.dto';
 import { Station } from '../entities/station.entity';
 import { StationService } from '../services/station.service';
 
@@ -45,8 +47,10 @@ export class ControllersController {
     type: Station,
   })
   @ApiBadRequestResponse({ description: 'Invalid station data provided.' })
-  async create(@Body() stationData: Partial<Station>): Promise<Station> {
-    return this.stationService.create(stationData);
+  async create(
+    @Body(new ValidationPipe()) CreateStationDto: CreateStationDto,
+  ): Promise<Station> {
+    return this.stationService.create(CreateStationDto);
   }
 
   @Put(':id')
