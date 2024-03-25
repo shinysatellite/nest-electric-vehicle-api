@@ -23,7 +23,7 @@ export class StationService {
     return this.stationRepository.save(station);
   }
 
-  async update(id: number, stationData: Partial<Station>): Promise<Station> {
+  async update(id: number, stationData: StationDto): Promise<Station> {
     await this.stationRepository.update(id, stationData);
     return this.stationRepository.findOne({ where: { id } });
   }

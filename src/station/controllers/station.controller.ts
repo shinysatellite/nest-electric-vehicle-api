@@ -75,7 +75,7 @@ export class ControllersController {
   })
   async update(
     @Param('id') id: string,
-    @Body() stationData: Partial<Station>,
+    @Body() stationData: StationDto,
   ): Promise<Station> {
     return this.stationService.update(+id, stationData);
   }
