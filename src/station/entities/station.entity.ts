@@ -1,5 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Company } from 'src/company/entities/company.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Station {
@@ -11,19 +18,19 @@ export class Station {
   @ApiProperty()
   name: string;
 
-  @Column()
+  @Column({ type: 'float' })
   @ApiProperty()
   latitude: number;
 
-  @Column()
+  @Column({ type: 'float' })
   @ApiProperty()
   longitude: number;
-
-  @Column({ name: 'company_id' })
-  @ApiProperty()
-  companyId: number;
 
   @Column()
   @ApiProperty()
   address: string;
+
+  @ManyToOne(() => Company, (company) => company.stations)
+  @JoinColumn({ name: 'company_id' })
+  company: Company;
 }
