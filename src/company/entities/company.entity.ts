@@ -18,11 +18,15 @@ export class Company {
   @ApiProperty()
   name: string;
 
+  @Column({ nullable: true }) // Add this line to define parent_company_id column
+  @ApiProperty()
+  parent_company_id: number;
+
   @OneToMany(() => Station, (station) => station.company) // One company has many stations
   stations: Station[]; // Define the relationship
 
   @ManyToOne(() => Company, (parent) => parent.childCompanies)
-  @JoinColumn({ name: 'parent_company_id' })
+  @JoinColumn({ name: 'parent_company_id', referencedColumnName: 'id' })
   parentCompany: Company;
 
   @OneToMany(() => Company, (child) => child.parentCompany)

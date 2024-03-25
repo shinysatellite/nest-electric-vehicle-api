@@ -30,6 +30,10 @@ export class Station {
   @ApiProperty()
   address: string;
 
+  @Column({ nullable: true })
+  @ApiProperty()
+  company_id: number;
+
   @ManyToOne(() => Company, (company) => company.stations)
   @JoinColumn({ name: 'company_id' })
   company: Company;
