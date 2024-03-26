@@ -34,7 +34,9 @@ export class Station {
   @ApiProperty()
   company_id: number;
 
-  @ManyToOne(() => Company, (company) => company.stations)
+  @ManyToOne(() => Company, (company) => company.stations, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'company_id' })
   company: Company;
 }
