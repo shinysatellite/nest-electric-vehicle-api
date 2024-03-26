@@ -10,7 +10,7 @@
 $ npm install
 ```
 
-## Docker Steup and RUN
+## Docker Setup and RUN
 
 - docker composer build
 
