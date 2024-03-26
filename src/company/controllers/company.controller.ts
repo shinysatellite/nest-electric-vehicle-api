@@ -19,7 +19,7 @@ import { CompanyDto } from '../dto/company.dto';
 import { Company } from '../entities/company.entity';
 import { CompanyService } from '../services/company.service';
 
-@ApiTags('companies') // Add tag for controller
+@ApiTags('companies')
 @Controller('companies')
 export class CompanyController {
   constructor(private readonly companyService: CompanyService) {}
@@ -29,8 +29,8 @@ export class CompanyController {
     status: 201,
     description: 'The company has been successfully created.',
     type: Company,
-  }) // Add response description
-  @ApiBody({ type: CompanyDto }) // Add request body type
+  })
+  @ApiBody({ type: CompanyDto })
   @Post()
   async create(@Body() createCompanyDto: CompanyDto): Promise<Company> {
     return await this.companyService.create(createCompanyDto);
@@ -61,8 +61,6 @@ export class CompanyController {
       longitude,
       radius,
     );
-    // const companyIds: number[] = [];
-    // this.companyService.collectCompanyIds(companyHierarchy, companyIds);
 
     return companyHierarchy;
   }

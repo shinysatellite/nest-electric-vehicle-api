@@ -8,6 +8,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
 @Entity()
 export class Company {
   @PrimaryGeneratedColumn()
@@ -18,14 +19,14 @@ export class Company {
   @ApiProperty()
   name: string;
 
-  @Column({ nullable: true }) // Add this line to define parent_company_id column
+  @Column({ nullable: true })
   @ApiProperty()
   parent_company_id: number;
 
   @OneToMany(() => Station, (station) => station.company, {
     onDelete: 'CASCADE',
-  }) // One company has many stations
-  stations: Station[]; // Define the relationship
+  })
+  stations: Station[];
 
   @ManyToOne(() => Company, (parent) => parent.childCompanies, {
     onDelete: 'CASCADE',
