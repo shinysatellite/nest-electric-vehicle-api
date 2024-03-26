@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import {
   ApiBody,
@@ -45,6 +46,25 @@ export class CompanyController {
   @Get()
   async findAll(): Promise<Company[]> {
     return await this.companyService.findAll();
+  }
+
+  @Get('find-with-hierachy')
+  async findAllWithHierachy(
+    @Query('latitude') latitude: number,
+    @Query('longitude') longitude: number,
+    @Query('radius') radius: number,
+    @Query('companyId') companyId?: number,
+  ) {
+    const companyHierarchy = await this.companyService.getCompanyHierarchy(
+      companyId,
+      latitude,
+      longitude,
+      radius,
+    );
+    // const companyIds: number[] = [];
+    // this.companyService.collectCompanyIds(companyHierarchy, companyIds);
+
+    return companyHierarchy;
   }
 
   @ApiOperation({ summary: 'Get a company by ID' })
